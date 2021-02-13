@@ -1,9 +1,15 @@
 // enter for search
- 
 document.getElementById('search').addEventListener('keypress', function(event){
     if(event.key == 'Enter'){
       document.getElementById('search-btn').click()
     }
+})
+
+// enter for slide on
+document.getElementById('duration').addEventListener('keypress', function(event){
+  if(event.key == 'Enter'){
+    document.getElementById('create-slider').click()
+  }
 })
 
 
@@ -24,6 +30,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
+  toggleSpinner(false);
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -34,7 +41,7 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${images.webformatURL}") src="${images.webformatURL}" alt="${images.tags}">`;
     gallery.appendChild(div)
   })
-
+ 
 }
 
 const getImages = (query) => {
@@ -42,6 +49,7 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(error => console.log(error))
+    toggleSpinner(true)
 }
 
 let slideIndex = 0;
@@ -61,6 +69,7 @@ const selectItem = (event, img) => {
 }
 var timer
 const createSlider = () => {
+ 
   // check slider image length
   if (sliders.length < 2) {
     alert('Select at least 2 image.')
@@ -78,7 +87,7 @@ const createSlider = () => {
   <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
   <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
   `;
-
+ 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
   // hide image aria
@@ -100,17 +109,18 @@ const createSlider = () => {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
-
+  
 }
 
 // change slider index 
 const changeItem = index => {
+
   changeSlide(slideIndex += index);
 }
 
 // change slide item
 const changeSlide = (index) => {
-
+  
   const items = document.querySelectorAll('.slider-item');
   if (index < 0) {
     slideIndex = items.length - 1
@@ -127,6 +137,7 @@ const changeSlide = (index) => {
   })
 
   items[index].style.display = "block"
+
 }
 
 searchBtn.addEventListener('click', function () {
@@ -135,10 +146,23 @@ searchBtn.addEventListener('click', function () {
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
-
+  
 })
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
-
 })
+
+
+
+// spinner added
+const toggleSpinner = (show) => {
+  const spinner = document.getElementById('loading-spinner');
+  if(show){
+      spinner.classList.remove('d-none');
+  }
+  else{
+      spinner.classList.add('d-none');
+  }
+
+}
