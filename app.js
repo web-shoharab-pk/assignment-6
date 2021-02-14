@@ -38,7 +38,7 @@ const showImages = (images) => {
   images.forEach(images => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${images.webformatURL}") src="${images.webformatURL}" alt="${images.tags}">`;
+    div.innerHTML = ` <img class="img-fluid img-thumbnail all-images" onclick=selectItem(event,"${images.webformatURL}") src="${images.webformatURL}" alt="${images.tags}">`;
     gallery.appendChild(div)
   })
  

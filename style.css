@@ -27,9 +27,9 @@ body{
   border-radius: 5px;
 }
 
-img {
-  height: 400px;
- 
+.all-images {
+  height: 250px;
+  width: 300px;
   object-fit: cover; 
 }
 
