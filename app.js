@@ -63,7 +63,7 @@ const selectItem = (event, img) => {
    // console.log("item",  sliders.);
   }
   else{
-    element.classList.add('remove');
+    element.classList.remove('added');
     sliders.splice(sliders.indexOf(img), 1);
   }
 }
